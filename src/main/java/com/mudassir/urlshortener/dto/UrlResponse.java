@@ -1,10 +1,10 @@
 package com.mudassir.urlshortener.dto;
 
-public class UrlResponce {
+public class UrlResponse {
 
 	private String shortUrl;
 	
-	public UrlResponce(String shortUrl) {
+	public UrlResponse(String shortUrl) {
 		this.shortUrl = shortUrl;
 	}
 

@@ -1,5 +1,3 @@
-
-
 package com.mudassir.urlshortener.repository;
 
 import java.util.Optional;

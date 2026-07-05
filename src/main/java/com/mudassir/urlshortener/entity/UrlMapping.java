@@ -21,6 +21,10 @@ public class UrlMapping {
 	private int clickCount = 0;
 
 	private LocalDateTime createdAt = LocalDateTime.now();
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -61,6 +65,8 @@ public class UrlMapping {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+
+	
 	
 	
 }

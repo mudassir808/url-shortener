@@ -12,7 +12,7 @@ import com.mudassir.urlshortener.util.KeyGenerator;
 @Service
 public class UrlShortenerService {
 
-	@Autowired  //
+	@Autowired 
 	private UrlRepository repository;
 	
 	@Autowired
