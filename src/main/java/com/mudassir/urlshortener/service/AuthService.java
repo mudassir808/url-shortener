@@ -6,10 +6,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mudassir.urlshortener.dto.LoginRequest;
-import com.mudassir.urlshortener.dto.RegisterRequest;
+import com.mudassir.urlshortener.dto.*;
 import com.mudassir.urlshortener.entity.User;
 import com.mudassir.urlshortener.repository.UserRepository;
+import com.mudassir.urlshortener.security.JwtService;
 
 @Service
 public class AuthService {
@@ -17,15 +17,20 @@ public class AuthService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
+	private final JwtService jwtService;
 	
 	public AuthService(UserRepository userRepository, 
 			           BCryptPasswordEncoder passwordEncoder,
-			           AuthenticationManager authenticationManager) {
+			           AuthenticationManager authenticationManager,
+			           JwtService jwtService) {
 		
 		this.userRepository= userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.authenticationManager = authenticationManager;
+		this.jwtService = jwtService;
 	}
+	
+	
 	
 	public String register (RegisterRequest request) {
 		
@@ -52,6 +57,8 @@ public class AuthService {
         return "User Registered Successfully";
 	}
 	
+	
+	
 	public String login(LoginRequest request) {
 
 	    Authentication authentication =
@@ -64,7 +71,17 @@ public class AuthService {
 	            );
 
 	    if (authentication.isAuthenticated()) {
-	        return "Login Successful";
+	    	//return jwtService.generateToken(request.getEmail());
+	    	
+	    	String token = jwtService.generateToken(request.getEmail());
+
+	    	System.out.println(jwtService.extractUsername(token));
+
+	    	System.out.println(jwtService.isTokenValid(
+	    	        token,
+	    	        request.getEmail()));
+
+	    	return token;
 	    }
 
 	    return "Invalid Credentials";
