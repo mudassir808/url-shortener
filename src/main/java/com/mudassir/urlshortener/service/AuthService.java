@@ -69,6 +69,12 @@ public class AuthService {
 	                            request.getPassword()
 	                    )
 	            );
+	    
+//	    The object you receive as AuthenticationManager is actually a ProviderManager (an implementation of the AuthenticationManager interface).
+//	    ProviderManager is configured by Spring with all AuthenticationProvider beans found in the application context.
+//	    When you call authenticate(), ProviderManager delegates the work to the appropriate provider—in your case, DaoAuthenticationProvider.
+	    
+	    
 
 	    if (authentication.isAuthenticated()) {
 	    	//return jwtService.generateToken(request.getEmail());
